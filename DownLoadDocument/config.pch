@@ -1,0 +1,18 @@
+//
+//  config.pch
+//  DownLoadDocument
+//
+//  Created by kong on 16/10/11.
+//  Copyright © 2016年 konglee. All rights reserved.
+//
+
+#ifndef config_pch
+#define config_pch
+
+#import "KLDownLoad.h"
+
+#import "NSString+LocalFile.h"
+
+#import "AFNetworking.h"
+
+#endif 
