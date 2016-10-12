@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+//考虑到多线程还是暂时注释掉这行
+//typedef void(^CompletionHandler)(NSURLResponse *response, NSURL *filePath, NSError *error);
+
 @interface KLDownLoad : NSObject<NSURLSessionDelegate>
-
-
 /**
  下载替换并存储文件
 

@@ -19,7 +19,6 @@
 // 传入字符串,直接在沙盒Document中生成路径
 - (instancetype)docDir
 {
-    
     NSString *doc = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES).firstObject;
     return [doc stringByAppendingPathComponent:[self lastPathComponent]];
     
