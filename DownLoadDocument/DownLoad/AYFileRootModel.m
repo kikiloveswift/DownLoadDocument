@@ -20,6 +20,10 @@
         {
             self.updateModel = [[AYFileUpdateModel alloc] initContentWithDic:self.update];
         }
+        if ([self.replace isKindOfClass:[NSDictionary class]])
+        {
+            self.replaceModel = [[AYReplaceModel alloc] initContentWithDic:self.replace];
+        }
     }
     return self;
 }

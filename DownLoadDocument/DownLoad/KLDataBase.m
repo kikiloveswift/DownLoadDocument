@@ -68,8 +68,8 @@ BOOL requestFlag = NO;
             NSLog(@"rootModel.updateModel.html is %@", rootModel.updateModel.html);
             [_fileMArr addObject:rootModel];
             
-            AYReplaceModel *replaceModel = [[AYReplaceModel alloc] initContentWithDic:result];
-            [_replaceMArr addObject:replaceModel];
+//            AYReplaceModel *replaceModel = [[AYReplaceModel alloc] initContentWithDic:result];
+//            [_replaceMArr addObject:replaceModel];
             
             if (requestFlag == NO)
             {
@@ -81,6 +81,11 @@ BOOL requestFlag = NO;
             }else
             {
                //此时两组Model都装入_fileMArr
+                NSLog(@"_replaceMArr is %@",_fileMArr);
+                //1.执行下载
+                
+                
+                //2.执行替换
                 
             }
         }

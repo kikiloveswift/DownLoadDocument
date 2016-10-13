@@ -20,6 +20,8 @@
 
 @property (nonatomic, strong) AYFileUpdateModel *updateModel;
 
+@property (nonatomic, strong) AYReplaceModel *replaceModel;
+
 
 
 - (id)initContentWithDic:(NSDictionary *)jsonDic;

@@ -17,7 +17,7 @@
 
 @property (nonatomic, strong) NSArray *cssRules;
 
-@property (nonatomic, strong) AYReplaceOldNewModel *oldNewModel;
+//@property (nonatomic, strong) AYReplaceOldNewModel *oldNewModel;
 
 - (id)initContentWithDic:(NSDictionary *)jsonDic;
 

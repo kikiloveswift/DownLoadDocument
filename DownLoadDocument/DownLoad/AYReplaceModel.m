@@ -25,8 +25,8 @@
                     NSMutableArray *mArr = [NSMutableArray array];
                     for (NSDictionary *dic in self.htmlRules)
                     {
-                        self.oldNewModel = [[AYReplaceOldNewModel alloc] initContentWithDic:dic];
-                        [mArr addObject:self.oldNewModel];
+                        AYReplaceOldNewModel *oldNewModel = [[AYReplaceOldNewModel alloc] initContentWithDic:dic];
+                        [mArr addObject:oldNewModel];
                     }
                     self.htmlRules = mArr;
                 }
@@ -42,8 +42,8 @@
                     NSMutableArray *mArr = [NSMutableArray array];
                     for (NSDictionary *dic in self.jsRules)
                     {
-                        self.oldNewModel = [[AYReplaceOldNewModel alloc] initContentWithDic:dic];
-                        [mArr addObject:self.oldNewModel];
+                        AYReplaceOldNewModel *oldNewModel = [[AYReplaceOldNewModel alloc] initContentWithDic:dic];
+                        [mArr addObject:oldNewModel];
                     }
                     self.jsRules = mArr;
                 }
@@ -59,8 +59,8 @@
                     NSMutableArray *mArr = [NSMutableArray array];
                     for (NSDictionary *dic in self.cssRules)
                     {
-                        self.oldNewModel = [[AYReplaceOldNewModel alloc] initContentWithDic:dic];
-                        [mArr addObject:self.oldNewModel];
+                        AYReplaceOldNewModel *oldNewModel = [[AYReplaceOldNewModel alloc] initContentWithDic:dic];
+                        [mArr addObject:oldNewModel];
                     }
                     self.cssRules = mArr;
                 }
