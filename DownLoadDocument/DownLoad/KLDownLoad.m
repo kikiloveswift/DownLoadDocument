@@ -31,11 +31,11 @@
         } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
             NSFileManager *manager = [NSFileManager defaultManager];
             NSString *localPath = [KLAnalysisData httpPathToLocalPath:response.URL];
-            
             //替换
             if (rules != nil && rules.count > 0)
             {
                 NSData *data = [NSData dataWithContentsOfURL:filePath];
+//                NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingGB_18030_2000);
                 NSString *htmlStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 
                 for (AYReplaceOldNewModel *model in rules)

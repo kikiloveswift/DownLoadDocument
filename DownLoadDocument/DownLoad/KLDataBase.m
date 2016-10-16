@@ -143,5 +143,22 @@ BOOL requestFlag = NO;
     
 }
 
+- (void)beginDownLoad:(AYFileRootModel *)model
+{
+//    NSLog(@"model.replaceModel.cssRules is %@",model.replaceModel.cssRules);
+//    [KLDownLoad downLoadWithURL:@"http://webresource1.aoyou.com/css/webapp/msitewebsite/recommendv1.css" ReplaceRule:model.replaceModel.cssRules];
+    
+    for (AYFileModel *fileModel in model.updateModel.style)
+    {
+        if ([[fileModel.file.pathExtension lowercaseString] isEqualToString:@"css"])
+        {
+            [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:model.replaceModel.cssRules];
+        }else
+        {
+            [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:nil];
+        }
+    }
+}
+
 
 @end

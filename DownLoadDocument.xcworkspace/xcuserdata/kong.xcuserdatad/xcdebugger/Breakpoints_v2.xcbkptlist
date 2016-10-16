@@ -20,27 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DownLoadDocument/DownLoad/KLDownLoad.m"
-            timestampString = "498195807.520223"
+            timestampString = "498317367.20984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "+downLoadWithURL:ReplaceRule:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DownLoadDocument/DownLoad/KLDownLoad.m"
-            timestampString = "498195807.520223"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
             landmarkName = "+downLoadWithURL:ReplaceRule:"
             landmarkType = "7">
          </BreakpointContent>
