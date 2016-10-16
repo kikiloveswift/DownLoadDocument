@@ -19,13 +19,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DownLoadDocument/DownLoad/KLDataBase.m"
-            timestampString = "498029795.643324"
+            filePath = "DownLoadDocument/DownLoad/KLDownLoad.m"
+            timestampString = "498195807.520223"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "-requestAYString:Bulid:"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "+downLoadWithURL:ReplaceRule:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DownLoadDocument/DownLoad/KLDownLoad.m"
+            timestampString = "498195807.520223"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "+downLoadWithURL:ReplaceRule:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

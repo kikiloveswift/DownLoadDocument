@@ -9,10 +9,13 @@
 #import "KLDownLoad.h"
 #import "KLAnalysisData.h"
 
+//替换
+#import "AYReplaceOldNewModel.h"
+
 @implementation KLDownLoad
 
 + (void)downLoadWithURL:(NSString *)urlString
-            ReplaceRule:(NSDictionary*)rules
+            ReplaceRule:(NSArray *)rules
 {
     @synchronized (self)
     {
@@ -26,16 +29,25 @@
             NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
             return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
         } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+            NSFileManager *manager = [NSFileManager defaultManager];
+            NSString *localPath = [KLAnalysisData httpPathToLocalPath:response.URL];
+            
+            //替换
+            if (rules != nil && rules.count > 0)
+            {
                 NSData *data = [NSData dataWithContentsOfURL:filePath];
                 NSString *htmlStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                htmlStr = [htmlStr stringByReplacingOccurrencesOfString:@"http://pic3.aoyou.com" withString:@"../../../pic3.aoyou.com"];
+                
+                for (AYReplaceOldNewModel *model in rules)
+                {
+                    htmlStr = [htmlStr stringByReplacingOccurrencesOfString:model.old withString:model.newone];
+                }
+                
                 NSData *jsonData = [htmlStr dataUsingEncoding:NSUTF8StringEncoding];
-            
-               NSString *localPath = [KLAnalysisData httpPathToLocalPath:response.URL];
+                
                 BOOL resultSuccess = [jsonData writeToFile:localPath atomically:YES];
                 if (resultSuccess) {
                     NSLog(@"写入成功");
-                    NSFileManager *manager = [NSFileManager defaultManager];
                     BOOL ret = [manager removeItemAtURL:filePath error:nil];
                     if (ret)
                     {
@@ -44,6 +56,23 @@
                 }
                 NSLog(@"htmlStr is %@",htmlStr);
                 NSLog(@"File downloaded to: %@", filePath);
+            }
+            else
+            {
+                //没有替换规则的
+//               BOOL ret = [manager moveItemAtURL:filePath toURL:[NSURL URLWithString:localPath] error:nil];
+                NSData *data = [NSData dataWithContentsOfURL:filePath];
+                BOOL ret = [data writeToFile:localPath atomically:YES];
+                if (ret)
+                {
+                    NSLog(@"成功");
+                    BOOL clearRes = [manager removeItemAtURL:filePath error:nil];
+                    if (clearRes)
+                    {
+                        NSLog(@"清除成功");
+                    }
+                }
+            }
         }];
         [downloadTask resume];
     }

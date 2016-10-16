@@ -19,6 +19,6 @@
  @param rules     替换规则字典
  */
 + (void)downLoadWithURL:(NSString *)urlString
-            ReplaceRule:(NSDictionary*)rules;
+            ReplaceRule:(NSArray*)rules;
 
 @end

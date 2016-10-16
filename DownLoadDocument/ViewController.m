@@ -22,7 +22,6 @@
 }
 - (void)testDownLoad
 {
-    [KLDownLoad downLoadWithURL:@"http://m.aoyou.com/s/CustomChannel/Index.html" ReplaceRule:nil];
     [[KLDataBase shareInstance] requestAYString:@"http://m.aoyou.com/version.txt" Bulid:^{
         
         [[KLDataBase shareInstance] requestAYString:@"http://mbook.aoyou.com/version.txt" Bulid:^{

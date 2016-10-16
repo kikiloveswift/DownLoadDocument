@@ -83,7 +83,7 @@ BOOL requestFlag = NO;
                //此时两组Model都装入_fileMArr
                 NSLog(@"_replaceMArr is %@",_fileMArr);
                 //1.执行下载
-                
+                [self beginToDownLoadFile:_fileMArr[0]];
                 
                 //2.执行替换
                 
@@ -96,7 +96,52 @@ BOOL requestFlag = NO;
     }];
 }
 
-//- (void)beginToDownLoadFile:()
+
+/**
+ 下载
+
+ @param model 根Model
+ */
+- (void)beginToDownLoadFile:(AYFileRootModel *)model
+{
+    for (AYFileModel *fileModel in model.updateModel.html)
+    {
+        NSLog(@"file PathExtension is %@",fileModel.file);
+        if ([[fileModel.file.pathExtension lowercaseString] isEqualToString:@"html"])
+        {
+            [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:model.replaceModel.htmlRules];
+        }else
+        {
+            [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:nil];
+        }
+    }
+    
+    for (AYFileModel *fileModel in model.updateModel.style)
+    {
+        if ([[fileModel.file.pathExtension lowercaseString] isEqualToString:@"css"])
+        {
+            [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:model.replaceModel.cssRules];
+        }else
+        {
+            [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:nil];
+        }
+    }
+    for (AYFileModel *fileModel in model.updateModel.script)
+    {
+        if ([[fileModel.file.pathExtension lowercaseString] isEqualToString:@"js"])
+        {
+            [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:model.replaceModel.jsRules];
+        }else
+        {
+            [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:nil];
+        }
+    }
+    for (AYFileModel *fileModel in model.updateModel.images)
+    {
+        [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:nil];
+    }
+    
+}
 
 
 @end
