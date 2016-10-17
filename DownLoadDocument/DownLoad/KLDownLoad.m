@@ -7,6 +7,9 @@
 //
 
 #import "KLDownLoad.h"
+
+#import "AYAFSessionManager.h"
+
 #import "KLAnalysisData.h"
 
 //替换
@@ -17,25 +20,30 @@
 + (void)downLoadWithURL:(NSString *)urlString
             ReplaceRule:(NSArray *)rules
 {
-    @synchronized (self)
-    {
-        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+//    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    AFURLSessionManager *manager = [AYAFSessionManager shareSessionManager];
+    
+    NSURL *URL = [NSURL URLWithString:urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+        return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
         
-        NSURL *URL = [NSURL URLWithString:urlString];
-        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-        
-        NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-            NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-            return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
-        } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        @synchronized (self)
+        {
+            
+            NSLog(@"current Thread is %@",[NSThread currentThread]);
             NSFileManager *manager = [NSFileManager defaultManager];
             NSString *localPath = [KLAnalysisData httpPathToLocalPath:response.URL];
             //替换
             if (rules != nil && rules.count > 0)
             {
                 NSData *data = [NSData dataWithContentsOfURL:filePath];
-//                NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingGB_18030_2000);
+    //                NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingGB_18030_2000);
                 NSString *htmlStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 
                 for (AYReplaceOldNewModel *model in rules)
@@ -54,13 +62,13 @@
                         NSLog(@"清除成功");
                     }
                 }
-                NSLog(@"htmlStr is %@",htmlStr);
+//                NSLog(@"htmlStr is %@",htmlStr);
                 NSLog(@"File downloaded to: %@", filePath);
             }
             else
             {
                 //没有替换规则的
-//               BOOL ret = [manager moveItemAtURL:filePath toURL:[NSURL URLWithString:localPath] error:nil];
+    //               BOOL ret = [manager moveItemAtURL:filePath toURL:[NSURL URLWithString:localPath] error:nil];
                 NSData *data = [NSData dataWithContentsOfURL:filePath];
                 BOOL ret = [data writeToFile:localPath atomically:YES];
                 if (ret)
@@ -73,9 +81,10 @@
                     }
                 }
             }
-        }];
-        [downloadTask resume];
-    }
+        }
+    }];
+    [downloadTask resume];
+    
 }
 
 

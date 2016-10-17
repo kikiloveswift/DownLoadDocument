@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		79B57DE53E3A7AE80604A2D1 /* libPods-DownLoadDocument.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5A94651B711B887A91F2CC7 /* libPods-DownLoadDocument.a */; };
+		FC67B6B51DB4A1FA0068518E /* AYAFSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC67B6B41DB4A1FA0068518E /* AYAFSessionManager.m */; };
 		FCA4BE9F1DAC8C2200A43420 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FCA4BE9E1DAC8C2200A43420 /* main.m */; };
 		FCA4BEA21DAC8C2200A43420 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FCA4BEA11DAC8C2200A43420 /* AppDelegate.m */; };
 		FCA4BEA51DAC8C2200A43420 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCA4BEA41DAC8C2200A43420 /* ViewController.m */; };
@@ -51,6 +52,8 @@
 		1D2670CF5188D3EF7AF497D1 /* Pods-DownLoadDocument.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownLoadDocument.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DownLoadDocument/Pods-DownLoadDocument.debug.xcconfig"; sourceTree = "<group>"; };
 		B5A94651B711B887A91F2CC7 /* libPods-DownLoadDocument.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DownLoadDocument.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC8EC106F0C09CD4CC14F082 /* Pods-DownLoadDocument.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownLoadDocument.release.xcconfig"; path = "Pods/Target Support Files/Pods-DownLoadDocument/Pods-DownLoadDocument.release.xcconfig"; sourceTree = "<group>"; };
+		FC67B6B31DB4A1FA0068518E /* AYAFSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AYAFSessionManager.h; sourceTree = "<group>"; };
+		FC67B6B41DB4A1FA0068518E /* AYAFSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AYAFSessionManager.m; sourceTree = "<group>"; };
 		FCA4BE9A1DAC8C2200A43420 /* DownLoadDocument.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DownLoadDocument.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCA4BE9E1DAC8C2200A43420 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FCA4BEA01DAC8C2200A43420 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -217,6 +220,8 @@
 				FCEA82331DAE3E500097C37F /* Replace */,
 				FCA4BED11DAC8F8E00A43420 /* KLDownLoad.h */,
 				FCA4BED21DAC8F8E00A43420 /* KLDownLoad.m */,
+				FC67B6B31DB4A1FA0068518E /* AYAFSessionManager.h */,
+				FC67B6B41DB4A1FA0068518E /* AYAFSessionManager.m */,
 				FCC9CAE11DADD6490042BDC5 /* KLAnalysisData.h */,
 				FCC9CAE21DADD6490042BDC5 /* KLAnalysisData.m */,
 				FCC9CADE1DADD3EC0042BDC5 /* KLDataBase.h */,
@@ -476,6 +481,7 @@
 				FCA4BE9F1DAC8C2200A43420 /* main.m in Sources */,
 				FCA4BED61DACD10C00A43420 /* NSString+LocalFile.m in Sources */,
 				FCC9CAEC1DAE07E20042BDC5 /* AYFileModel.m in Sources */,
+				FC67B6B51DB4A1FA0068518E /* AYAFSessionManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,7 +577,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -614,7 +620,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
