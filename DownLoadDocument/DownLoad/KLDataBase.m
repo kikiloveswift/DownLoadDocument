@@ -93,12 +93,13 @@ BOOL requestFlag = NO;
 //                dispatch_group_async(group, queue, ^{
 //                    [self beginToDownLoadFile:_fileMArr[0]];
 //                });
-                for (int i = 0; i<=1; i++)
-                {
-                    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                        [self beginToDownLoadFile:_fileMArr[i]];
-                    });
-                }
+//                for (int i = 0; i<=1; i++)
+//                {
+//                    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//                        [self beginToDownLoadFile:_fileMArr[i]];
+                        [self dobackGroundWork];
+//                    });
+//                }
 //
 //                dispatch_async(dispatch_get_global_queue(0, 0), ^{
 //                    [NSThread sleepForTimeInterval:0.3];
@@ -127,6 +128,16 @@ BOOL requestFlag = NO;
     } Failure:^(id operation, NSError *error) {
         
     }];
+}
+
+- (void)dobackGroundWork
+{
+    for (int i = 0; i < 1; i ++)
+    {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [self performSelectorInBackground:@selector(beginToDownLoadFile:) withObject:_fileMArr[i]];
+        });
+    }
 }
 
 
