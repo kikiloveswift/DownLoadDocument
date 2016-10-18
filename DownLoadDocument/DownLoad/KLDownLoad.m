@@ -15,6 +15,10 @@
 //替换
 #import "AYReplaceOldNewModel.h"
 
+static NSInteger documentcount = 0;
+
+static NSInteger requestcount = 0;
+
 @implementation KLDownLoad
 
 + (void)downLoadWithURL:(NSString *)urlString
@@ -27,6 +31,8 @@
     
     NSURL *URL = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    requestcount ++;
+    NSLog(@"*****request is %ld",requestcount);
     
     NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
         NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
@@ -35,8 +41,22 @@
         
         @synchronized (self)
         {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+            NSLog(@"response status code: %ld", (long)[httpResponse statusCode]);
             
-            NSLog(@"current Thread is %@",[NSThread currentThread]);
+            if (httpResponse.statusCode != 200)
+            {
+                NSLog(@"badRequest is %@",response.URL.absoluteString);
+                return ;
+            }
+            documentcount ++;
+            NSLog(@"*****documentcount is %ld",documentcount);
+            if (documentcount == requestcount && error == nil && httpResponse.statusCode == 200)
+            {
+                NSLog(@"SUCCESS!!!!已经全部下载");
+            }else{
+                
+            }
             NSFileManager *manager = [NSFileManager defaultManager];
             NSString *localPath = [KLAnalysisData httpPathToLocalPath:response.URL];
             //替换
@@ -52,8 +72,16 @@
                 }
                 
                 NSData *jsonData = [htmlStr dataUsingEncoding:NSUTF8StringEncoding];
+                if (jsonData != nil)
+                {
+                    if ([manager fileExistsAtPath:localPath])
+                    {
+                        [manager removeItemAtPath:localPath error:nil];
+                    }
+                }
                 
                 BOOL resultSuccess = [jsonData writeToFile:localPath atomically:YES];
+                
                 if (resultSuccess) {
                     NSLog(@"写入成功");
                     BOOL ret = [manager removeItemAtURL:filePath error:nil];

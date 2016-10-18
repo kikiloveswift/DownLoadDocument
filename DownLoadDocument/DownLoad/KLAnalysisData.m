@@ -41,25 +41,5 @@
     return path;
 }
 
-+ (NSString *)replaceStrWith:(NSString *)htmlStr Type:(NSString *)type Rules:(NSArray *)rules
-{
-    @synchronized (self)
-    {
-        //HTML替换
-        if ([[type lowercaseString] isEqualToString:@"html"])
-        {
-            return htmlStr;
-        }else if ([[type lowercaseString] isEqualToString:@"css"])
-        {
-            return htmlStr;
-        }else if ([[type lowercaseString] isEqualToString:@"js"])
-        {
-            return htmlStr;
-        }else
-        {
-            return htmlStr;
-        }
-    }
-}
 
 @end

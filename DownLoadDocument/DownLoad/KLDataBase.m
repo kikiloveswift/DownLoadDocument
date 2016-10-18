@@ -12,6 +12,9 @@
 #import "AYFileModel.h"
 #import "AYFileRootModel.h"
 
+//逻辑处理
+#import "KLAnalysisData.h"
+
 @interface KLDataBase()
 {
     //装文件的MArr
@@ -84,7 +87,36 @@ BOOL requestFlag = NO;
                 NSLog(@"_replaceMArr is %@",_fileMArr);
                 //1.执行下载 替换 删除原文件
                 
-                [self beginToDownLoadFile:_fileMArr[0]];
+                
+//                dispatch_group_t group = dispatch_group_create();
+//                dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+//                dispatch_group_async(group, queue, ^{
+//                    [self beginToDownLoadFile:_fileMArr[0]];
+//                });
+                for (int i = 0; i<=1; i++)
+                {
+                    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                        [self beginToDownLoadFile:_fileMArr[i]];
+                    });
+                }
+//
+//                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//                    [NSThread sleepForTimeInterval:0.3];
+////                    sleep(0.3);
+//                    [self beginToDownLoadFile:_fileMArr[1]];
+//                });
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+////                        [self beginToDownLoadFile:_fileMArr[1]];
+//                    });
+//                });
+                
+//                dispatch_group_async(group, queue, ^{
+//                    
+//                    [self beginToDownLoadFile:_fileMArr[1]];
+//
+//                });
+                
             
                 
                 
@@ -105,54 +137,56 @@ BOOL requestFlag = NO;
  */
 - (void)beginToDownLoadFile:(AYFileRootModel *)model
 {
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        
-        for (AYFileModel *fileModel in model.updateModel.html)
+    
+    for (AYFileModel *fileModel in model.updateModel.html)
+    {
+        NSLog(@"file PathExtension is %@",fileModel.file);
+        if ([[fileModel.file.pathExtension lowercaseString] isEqualToString:@"html"])
         {
-            NSLog(@"file PathExtension is %@",fileModel.file);
-            if ([[fileModel.file.pathExtension lowercaseString] isEqualToString:@"html"])
-            {
-                [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:model.replaceModel.htmlRules];
-            }else
-            {
-                [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:nil];
-            }
-        }
-        
-        NSLog(@"当前线程是%@",[NSThread currentThread]);
-        NSLog(@"开始睡眠");
-        [NSThread sleepForTimeInterval:3];
-        NSLog(@"睡眠结束");
-        for (AYFileModel *fileModel in model.updateModel.style)
-        {
-            if ([[fileModel.file.pathExtension lowercaseString] isEqualToString:@"css"])
-            {
-                [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:model.replaceModel.cssRules];
-            }else
-            {
-                [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:nil];
-            }
-        }
-        [NSThread sleepForTimeInterval:1];
-        
-        for (AYFileModel *fileModel in model.updateModel.script)
-        {
-            if ([[fileModel.file.pathExtension lowercaseString] isEqualToString:@"js"])
-            {
-                [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:model.replaceModel.jsRules];
-            }else
-            {
-                [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:nil];
-            }
-        }
-        [NSThread sleepForTimeInterval:1];
-        
-        for (AYFileModel *fileModel in model.updateModel.images)
+            [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:model.replaceModel.htmlRules];
+        }else
         {
             [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:nil];
         }
+    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+    });
+    NSLog(@"当前线程是%@",[NSThread currentThread]);
+    NSLog(@"开始睡眠");
+    NSLog(@"睡眠结束");
+    for (AYFileModel *fileModel in model.updateModel.style)
+    {
+        if ([[fileModel.file.pathExtension lowercaseString] isEqualToString:@"css"])
+        {
+            [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:model.replaceModel.cssRules];
+        }else
+        {
+            [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:nil];
+        }
+    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
     });
     
+    for (AYFileModel *fileModel in model.updateModel.script)
+    {
+        if ([[fileModel.file.pathExtension lowercaseString] isEqualToString:@"js"])
+        {
+            [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:model.replaceModel.jsRules];
+        }else
+        {
+            [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:nil];
+        }
+    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+    });
+    for (AYFileModel *fileModel in model.updateModel.images)
+    {
+        [KLDownLoad downLoadWithURL:fileModel.file ReplaceRule:nil];
+    }
+
 }
 
 - (void)beginDownLoad:(AYFileRootModel *)model
