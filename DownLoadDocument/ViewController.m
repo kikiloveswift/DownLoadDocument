@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "KLDataBase.h"
 
+#import "TouchIDIdentifier.h"
+
 
 @interface ViewController ()
 
@@ -18,7 +20,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self testDownLoad];
+//    [self testDownLoad];
+    [self identifyTouchID];
 }
 - (void)testDownLoad
 {
@@ -30,6 +33,23 @@
         }];
     
     }];
+}
+
+- (void)identifyTouchID
+{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(100, 84, 200, 50);
+    btn.backgroundColor = [UIColor lightGrayColor];
+    [btn setTitle:@"验证TouchID" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
+
+    
+}
+
+
+- (void)btnAction:(UIButton *)btn{
+    [TouchIDIdentifier identifyTouchID];
 }
 
 
